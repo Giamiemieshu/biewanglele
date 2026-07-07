@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <title>别忘带了</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="assets/icon-192.png">
+  <meta name="apple-mobile-web-app-title" content="别忘带了">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="app-header">
+      <h1>🎒 别忘带了</h1>
+      <p class="subtitle">出门前看一眼，什么都不落</p>
+    </header>
+
+    <main id="app-main">
+      <section id="page-home" class="page active">
+        <!-- 搜索框 -->
+        <div class="search-bar" id="search-bar">
+          <input type="text" id="search-input" placeholder="搜索场景或物品..." />
+        </div>
+        <!-- 场景列表 -->
+        <div id="scene-list"></div>
+        <!-- 空状态 -->
+        <div id="empty-state" class="empty-state" style="display:none">
+          <span class="empty-icon">📋</span>
+          <p>还没有场景，点右下角新建一个</p>
+        </div>
+      </section>
+
+      <section id="page-scene" class="page">
+        <div class="page-header">
+          <button class="btn-back" id="btn-back-scene">← 返回</button>
+          <h2 id="scene-title">场景详情</h2>
+        </div>
+        <div id="item-list"></div>
+      </section>
+
+      <section id="page-item-detail" class="page">
+        <div class="page-header">
+          <button class="btn-back" id="btn-back-item">← 返回</button>
+          <h2 id="item-detail-title">物品详情</h2>
+        </div>
+        <div id="item-detail-content" class="detail-content">
+          <!-- 物品详情由 item-detail.js 动态渲染 -->
+        </div>
+      </section>
+    </main>
+
+    <!-- 浮动添加按钮（首页 = 新建场景，场景页 = 添加物品） -->
+    <button id="fab-add" class="fab" aria-label="新建场景">＋</button>
+
+    <!-- ===== 新建场景弹窗 ===== -->
+    <div id="modal-overlay" class="modal-overlay" style="display:none">
+      <div class="modal">
+        <h3 id="modal-title">新建场景</h3>
+        <div class="modal-body">
+          <label class="modal-label">场景名称</label>
+          <input type="text" id="modal-scene-name" class="modal-input" placeholder="例如：看电影" maxlength="20" />
+          <label class="modal-label">选择图标</label>
+          <div class="icon-picker" id="icon-picker">
+            <!-- JS 动态渲染 Emoji 图标选择器 -->
+          </div>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-cancel" id="btn-modal-cancel">取消</button>
+          <button class="btn btn-primary" id="btn-modal-confirm">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 添加物品弹窗 ===== -->
+    <div id="modal-item-overlay" class="modal-overlay" style="display:none">
+      <div class="modal">
+        <h3 id="modal-item-title">添加物品</h3>
+        <div class="modal-body">
+          <label class="modal-label">物品名称</label>
+          <input type="text" id="modal-item-name" class="modal-input" placeholder="例如：充电器" maxlength="30" />
+          <label class="modal-label">选择图标</label>
+          <div class="icon-picker" id="modal-item-icons"></div>
+          <label class="modal-label">存放位置（可选）</label>
+          <input type="text" id="modal-item-location" class="modal-input" placeholder="例如：玄关抽屉" maxlength="50" />
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-cancel" id="modal-item-cancel">取消</button>
+          <button class="btn btn-primary" id="modal-item-confirm">确定</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 成功出门弹窗 ===== -->
+    <div id="modal-celebrate-overlay" class="modal-overlay" style="display:none">
+      <div class="modal modal-celebrate">
+        <div class="celebrate-body">
+          <div class="celebrate-icon">🎉</div>
+          <h3>东西都带齐了！</h3>
+          <p class="celebrate-text">祝你出门顺利，享受美好时光 🌟</p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-primary" id="btn-celebrate-ok">好的，出发！</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== 确认删除弹窗 ===== -->
+    <div id="modal-confirm-overlay" class="modal-overlay" style="display:none">
+      <div class="modal modal-sm">
+        <h3>确认删除</h3>
+        <div class="modal-body">
+          <p id="modal-confirm-text">确定要删除这个场景吗？</p>
+        </div>
+        <div class="modal-actions">
+          <button class="btn btn-cancel" id="btn-confirm-cancel">取消</button>
+          <button class="btn btn-danger" id="btn-confirm-ok">删除</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 消息提示 -->
+    <div id="toast" class="toast"></div>
+  </div>
+
+  <script src="js/store.js"></script>
+  <script src="js/emoji-suggest.js"></script>
+  <script src="js/scenes.js"></script>
+  <script src="js/items.js"></script>
+  <script src="js/item-detail.js"></script>
+  <script src="js/checkout.js"></script>
+  <script src="js/search.js"></script>
+  <script src="js/app.js"></script>
+  <script>
+    // Service Worker 注册
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js').catch(function(err) {
+        console.log('SW 注册失败（离线不影响使用）:', err);
+      });
+    }
+  </script>
+</body>
+</html>
