@@ -106,3 +106,114 @@ MIT
 <div align="center">
   <p>⭐ 如果这个项目对你有帮助，给个 Star 吧！</p>
 </div>
+<div align="center">
+  <h1>🎒 别忘带了 <i>Biewanglele</i></h1>
+  <p><b>Don't forget your stuff.</b> A zero‑dependency PWA packing‑checklist that lives in your browser and on your home screen.</p>
+  <p>
+    <img src="https://img.shields.io/badge/status-launched-success" alt="status"/>
+    <img src="https://img.shields.io/badge/platform-PWA-%23F5D742" alt="PWA"/>
+    <img src="https://img.shields.io/github/license/Giamiemieshu/biewanglele" alt="license"/>
+    <img src="https://img.shields.io/badge/离线可用-✅-brightgreen" alt="offline"/>
+    <img src="https://img.shields.io/badge/零依赖-纯前端-blue" alt="zero-dep"/>
+    <br/>
+    <a href="https://giamiemieshu.github.io/biewanglele/"><strong>🌐 Live Demo</strong></a>
+    ·
+    <a href="https://github.com/Giamiemieshu/biewanglele/issues"><strong>🐛 Report Bug</strong></a>
+  </p>
+</div>
+
+---
+
+## 📖 简介 · About
+
+**中文** | 每次出门总担心忘带东西？别忘带了帮你按场景整理物品清单，出门前打个✓就出发。预设 8 种场景（撸铁、出差、散步…），也可以自己创建。数据全存在本地，无需注册，离线可用。
+
+**English** | A packing checklist PWA that groups items by scene. Check them off, get a little celebration, and never forget a thing. 8 preset scenes, fully customizable. Zero servers, zero sign‑up, works offline.
+
+---
+
+## ✨ Features
+
+| | Feature | |
+|--|---------|--|
+| 📋 | **Scene‑based checklists** — group items by activity | 🎯 |
+| ✅ | **Check‑off flow** — tick every box → celebration → reset | 🎉 |
+| 📷 | **Item details** — photo, icon, storage location | 🔍 |
+| 💡 | **Smart emoji** — type "充电宝" → auto‑selects 🔋 | 🤖 |
+| 📌 | **Pin scenes** + **usage stats** | 📊 |
+| 🔎 | **Global search** — find scenes and items instantly | ⚡ |
+| 📦 | **PWA** — add to home screen, works offline | 📱 |
+| 🔒 | **Privacy first** — all data stays in your browser | 🛡️ |
+
+---
+
+## 🚀 Quick Start
+
+```bash
+# Live demo
+open https://giamiemieshu.github.io/biewanglele/
+
+# Or clone & open locally
+git clone https://github.com/Giamiemieshu/biewanglele.git
+cd biewanglele && open index.html
+```
+
+**iPhone** — Safari → Share → **Add to Home Screen**.
+
+---
+
+## 🛠️ Tech Stack
+
+| Layer | Choice | Why |
+|-------|--------|-----|
+| UI | HTML5 + CSS3 | Zero dependencies, no build |
+| Logic | Vanilla JS | Lightweight, easy to hack |
+| Storage | localStorage | Enough for scenes × items |
+| Offline | Service Worker | Caches all static assets |
+| Icons | Unicode Emoji | Universal, no loading |
+
+**0 deps. 0 build. 1 file to open.**
+
+---
+
+## 📁 Structure
+
+```
+biewanglele/
+├── index.html          # SPA entry
+├── manifest.json       # PWA manifest
+├── sw.js               # Service Worker
+├── css/style.css       # All styles
+├── js/                 # 7 modular files
+│   ├── store.js        # Data model
+│   ├── scenes.js       # Scene CRUD
+│   ├── items.js        # Item checklist
+│   ├── item-detail.js  # Photo, icon, location
+│   ├── checkout.js     # Celebration flow
+│   ├── search.js       # Global search
+│   └── emoji-suggest.js # Smart emoji match
+└── assets/             # PWA icons
+```
+
+---
+
+## 🤝 Contributing
+
+PRs welcome! This project is small and simple — great to learn from.
+
+1. Fork it
+2. Make your change
+3. Open a PR
+
+---
+
+## 📜 License
+
+MIT © [Giamiemieshu](https://github.com/Giamiemieshu)
+
+---
+
+<div align="center">
+  <p>⭐ If this helped you, give it a star — it helps others find it too.</p>
+  <img src="https://api.star-history.com/svg?repos=Giamiemieshu/biewanglele&type=Date" width="500" alt="Star History"/>
+</div>
